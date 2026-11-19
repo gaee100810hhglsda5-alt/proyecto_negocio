@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'negocio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
-
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 # Database
 DATABASES = {
