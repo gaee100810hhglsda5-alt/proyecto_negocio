@@ -1,45 +1,44 @@
 {% extends 'base.html' %}
-{% block title %}Productos - Arte y Papel{% endblock %}
+{% block title %}Clientes - Arte y Papel{% endblock %}
 {% block content %}
 <div class="page-header">
-    <h2>Catálogo de productos</h2>
-    <a href="{% url 'crear_producto' %}" class="btn btn-success">+ Nuevo producto</a>
+    <h2>Lista de Clientes</h2>
+    <a href="{% url 'crear_cliente' %}" class="btn btn-success">+ Nuevo Cliente</a>
 </div>
-
-{% if productos %}
-<div class="product-grid">
-    {% for producto in productos %}
-    <article class="product-card {% if producto.activo %}activo{% else %}inactivo{% endif %}">
-        <div class="product-top">
-            <span class="product-category">{{ producto.categoria.nombre }}</span>
-            {% if producto.activo %}
-                <span class="badge badge-success">Activo</span>
-            {% else %}
-                <span class="badge badge-error">Inactivo</span>
-            {% endif %}
-        </div>
-        <span class="product-id">ID: {{ producto.id }}</span>
-        <h3 class="product-name">{{ producto.nombre }}</h3>
-        <p class="product-price">${{ producto.precio }}</p>
-        <p class="product-stock">
-            Stock: {{ producto.stock }}
-            {% if producto.stock == 0 %}
-                <span class="badge badge-error">Agotado</span>
-            {% elif producto.stock <= 10 %}
-                <span class="badge badge-warning">Pocas piezas</span>
-            {% endif %}
-        </p>
-        <div class="product-actions">
-            <a href="{% url 'editar_producto' producto.pk %}" class="btn btn-warning">Editar</a>
-            <a href="{% url 'eliminar_producto' producto.pk %}" class="btn btn-danger">Eliminar</a>
-        </div>
-    </article>
-    {% endfor %}
+{% if clientes %}
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.id }}</td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>
+                    <a href="{% url 'editar_cliente' cliente.pk %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'eliminar_cliente' cliente.pk %}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% else %}
 <div class="card empty-state">
-    <p>No hay productos registrados aún.</p>
-    <a href="{% url 'crear_producto' %}" class="btn btn-success">Agregar el primer producto</a>
+    <p>No hay clientes registrados aún.</p>
+    <a href="{% url 'crear_cliente' %}" class="btn btn-success">Agregar el primer cliente</a>
 </div>
 {% endif %}
 {% endblock %}
